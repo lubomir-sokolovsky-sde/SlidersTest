@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:SlidersTest;assembly=SlidersTest"
+             x:Class="SlidersTest.HomeView">
+
+  <ContentPage.Resources>
+    <ResourceDictionary>
+      <vm:IntToStringConverter x:Key="intToStringConverter" />
+      <vm:DecimalToStringConverter x:Key="decimalToStringConverter" />
+      <vm:IntToDoubleConverter x:Key="intToDoubleConverter" />
+      <vm:DoubleToDoubleConverter x:Key="doubleToDoubleConverter" />
+    </ResourceDictionary>
+  </ContentPage.Resources>
+
+  <ContentPage.Content>
+    <ScrollView>
+      <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+        <Label Text="0-9" />
+        <vm:StepsSlider x:Name="firstSlider"
+                        Steps="10"
+                           Value="{Binding SmallScale, 
+                                  Mode=TwoWay, 
+                                  Converter={StaticResource intToDoubleConverter},
+                                  ConverterParameter=9}" />
+        <Label Text="{Binding SmallScale}" />
+        <Entry x:Name="firstEntry"
+               Keyboard="Numeric"
+               Text="{Binding Path=SmallScale, Mode=TwoWay, Converter={StaticResource intToStringConverter}}" />
+
+        <Label Text="0-999" />
+        <vm:StepsSlider x:Name="secondSlider"
+                Value="{Binding LargeScale, 
+                      Mode=TwoWay, 
+                      Converter={StaticResource intToDoubleConverter},
+                      ConverterParameter=999}" />
+        <Label Text="{Binding LargeScale}" />
+        <Entry x:Name="secondEntry"
+               Keyboard="Numeric"
+               Text="{Binding Path=LargeScale, Mode=TwoWay, Converter={StaticResource intToStringConverter}}" />
+
+        <Label Text="5-25" />
+        <vm:StepsSlider Maximum="25"
+                           Minimum="5"
+                           x:Name="thirdSlider"
+                           Value="{Binding Offset, 
+                                  Mode=TwoWay}" />
+        <Label Text="{Binding Offset}" />
+        <Entry x:Name="thirdEntry"
+               Keyboard="Numeric"
+               Text="{Binding Path=Offset, Mode=TwoWay, Converter={StaticResource intToStringConverter}}" />
+
+        <Label Text="0.0-9.0" />
+        <vm:StepsSlider
+                           x:Name="fourthSlider"                           
+                        Steps="100"
+                           Value="{Binding SmallFloat, Mode=TwoWay, 
+                                  Converter={StaticResource doubleToDoubleConverter},
+                                  ConverterParameter=9}}" />
+        <Label Text="{Binding SmallFloat}" />
+        <Entry x:Name="fourtEntry"
+               Keyboard="Numeric"
+               Text="{Binding Path=SmallFloat, Mode=TwoWay, Converter={StaticResource decimalToStringConverter}}" />
+
+        <Label Text="0.0-999.0" />
+        <vm:StepsSlider
+                           x:Name="fifthSlider"
+                        Steps="10000"
+                           Value="{Binding LargeDecimal, Mode=TwoWay, 
+                                  Converter={StaticResource doubleToDoubleConverter},
+                                  ConverterParameter=999}}" />
+        <Label Text="{Binding LargeDecimal}" />
+        <Entry x:Name="fifthEntry"
+               Keyboard="Numeric"
+               Text="{Binding Path=LargeDecimal, Mode=TwoWay, Converter={StaticResource decimalToStringConverter}}" />
+      </StackLayout>
+    </ScrollView>
+  </ContentPage.Content>
+
+</ContentPage>
